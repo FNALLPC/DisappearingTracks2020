@@ -2,7 +2,7 @@
 
 Welcome to the 2020 FNAL CMSDAS exercise on disappearing tracks! This long exercise will walk students through a number of steps needed to set up and implement an search for new physics at CMS. Enjoy :)
 
-If you're doing the exercise at the school, please send an email to me so I can sign you up for Mattermost (samuel.bein@gmail.com)
+If you're doing the exercise at the school, please send an email to me so I can sign you up for Mattermost (rheller@fnal.gov)
 
 https://mattermost.web.cern.ch/cmsdaslpc2020/channels/longexercisedisappearingtracksteam
 
