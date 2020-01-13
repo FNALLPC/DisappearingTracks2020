@@ -21,7 +21,7 @@ def nameonly(s):
 	return posixpath.splitext(posixpath.split(s)[1])[0]    
 # -----------------------------------------------------------------------------
 
-skimDirectory = '/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/Skims/'
+skimDirectory = '/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/Skims/'
 
 def main():
 	NAME = 'LLSUSY'

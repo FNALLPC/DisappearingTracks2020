@@ -1,10 +1,10 @@
-# CMSDAS @ FNAL 2019: Disappearing tracks
+# CMSDAS @ FNAL 2020: Disappearing tracks
 
-Welcome to the 2019 FNAL CMSDAS exercise on disappearing tracks! This long exercise will walk students through a number of steps needed to set up and implement an search for new physics at CMS. Enjoy :)
+Welcome to the 2020 FNAL CMSDAS exercise on disappearing tracks! This long exercise will walk students through a number of steps needed to set up and implement an search for new physics at CMS. Enjoy :)
 
 If you're doing the exercise at the school, please send an email to me so I can sign you up for Mattermost (samuel.bein@gmail.com)
 
-https://mattermost.web.cern.ch/cmsdaslpc2019/channels/shorttrackteam
+https://mattermost.web.cern.ch/cmsdaslpc2020/channels/longexercisedisappearingtracksteam
 
 Note about the samples: This exercise is built largely on pre-made ntuples, and is thus mostly independent of CMSSW. The code that generated the ntuples is contained in the repo: https://github.com/longlivedsusy/treemaker
 
@@ -21,7 +21,7 @@ The exercise is organized in sections as follows: First, the recipe for setting 
 First, [login](https://uscms.org/uscms_at_work/physics/computing/getstarted/uaf.shtml#prerequisites) to a cmslpc node
 
 ```
-ssh -y <username>@cmslpc-sl6.fnal.gov
+ssh -y <username>@cmslpc-sl7.fnal.gov
 source /cvmfs/cms.cern.ch/cmsset_default.csh
 ```
 
@@ -30,27 +30,29 @@ Then create a CMSSW working environment in your home folder:
 ```
 mkdir longlivedLE
 cd longlivedLE
-cmsrel CMSSW_10_1_0
+SCRAM_ARCH=slc7_amd64_gcc700
+cmsrel CMSSW_10_6_4
 ```
 
 Change to your newly created working environment and initialize the 
 CMSSW software environment (you will need to do this step every time you login): 
 
 ```
-cd CMSSW_10_1_0/src
+cd CMSSW_10_6_4/src
 cmsenv
+cd ../..
 ```
 
 Now you need to clone the git repository which contains the analysis-specific code: 
 
 ```
-git clone git@github.com:CMSDASAtLPC/LongExerciseSUSYDisappearingTracks.git cmsdas2019
-cd cmsdas2019
+git clone git@github.com:FNALLPC/DisappearingTracks2020
+cd DisappearingTracks2020
 
-cp -r /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel2-200-4-medium-updated/ usefulthings/
-cp -r /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel3-200-4-short-updated/ usefulthings/
-cp -r /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/usefulthings/DataDrivenSmear_DYJets_Pix* usefulthings/
-cp -r /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/usefulthings/DataDrivenSmear_Run2016_Pix*.root usefulthings/
+cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel2-200-4-medium-updated/ usefulthings/
+cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel3-200-4-short-updated/ usefulthings/
+cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/usefulthings/DataDrivenSmear_DYJets_Pix* usefulthings/
+cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/usefulthings/DataDrivenSmear_Run2016_Pix*.root usefulthings/
 ```
 
 ## 2.) Introduction to tracking
@@ -64,7 +66,6 @@ We will be using 10.569 events from 2017 data (Run2017F_SingleMuon_AOD_17Nov2017
 ```
 mkdir tracking-intro
 cd tracking-intro
-xrdcp root://cmseos.fnal.gov//store/user/cmsdas/2019/long_exercises/DisappearingTracks/tracking/tracks_and_vertices.root ./tracks_and_vertices.root
 ```
 
 ### 2.a) The five basic track variables
@@ -91,7 +92,7 @@ Create ```print.py``` (for example ```vim print.py```, or use your favorite text
 
 ```
 import DataFormats.FWLite as fwlite
-events = fwlite.Events("tracks_and_vertices.root")
+events = fwlite.Events("root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/tracking/tracks_and_vertices.root")
 tracks = fwlite.Handle("std::vector<reco::Track>")
 
 for i, event in enumerate(events):
@@ -167,7 +168,7 @@ To plot some track variables, use ROOT and make a python loop like in the exampl
 import DataFormats.FWLite as fwlite
 import ROOT
 
-events = fwlite.Events("tracks_and_vertices.root")
+events = fwlite.Events("root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/tracking/tracks_and_vertices.root")
 tracks = fwlite.Handle("std::vector<reco::Track>")
 
 hist_pt   = ROOT.TH1F("pt", "pt", 100, 0.0, 100.0)
@@ -217,7 +218,7 @@ The analyzer does not even need to calculate the particle's momentum from the tr
 import DataFormats.FWLite as fwlite
 import ROOT
 
-events = fwlite.Events("tracks_and_vertices.root")
+events = fwlite.Events("root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/tracking/tracks_and_vertices.root")
 tracks = fwlite.Handle("std::vector<reco::Track>")
 
 for i, event in enumerate(events):
@@ -324,8 +325,8 @@ In the following, we will be working with ntuples which contain a selection of u
 
 Let's start by having a look at some of the tracking variables of signal tracks:
 ```
-root -l root://cmseos.fnal.gov//store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/signal.root 
-root -l root://cmseos.fnal.gov//store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelstrips/signal.root 
+root -l root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/signal.root 
+root -l root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelstrips/signal.root 
 root [0] new TBrowser
 ```
 With TBrowser, open the "PreSelection" tree and take a look at the variables. The tree contains variables from the track objets such as pT, eta and phi as well as variables from the hitpattern, such as nValidPixelHits or nMissingOuterHits. Also, for each track a selection of corresponding event-level properties as MET and HT are also stored.
@@ -345,6 +346,7 @@ You are looking at a couple of observables that are key to selecting signal disa
 We will now plot the signal alongside with the stacked main MC backgrounds on track level. The script ```plot_track_variables.py``` contains some predefined plots for ```treeplotter.sh```:
 
 ```
+cd tools
 $ ./plot_track_variables.py
 ```
 

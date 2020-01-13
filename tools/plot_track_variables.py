@@ -13,10 +13,10 @@ plot_config = {
 my_cuts = ""
 
 # plot short tracks (pixel-only)
-treeplotter.loop_over_files("/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly", "samples.cfg", plot_config, tree_folder_name="PreSelection", cutstring = my_cuts, suffix="_short", ignore_samples="g1800_chi1400", folder="./plots")
+treeplotter.loop_over_files("/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly", "samples.cfg", plot_config, tree_folder_name="PreSelection", cutstring = my_cuts, suffix="_short", ignore_samples="g1800_chi1400", folder="./plots")
 
 # plot long tracks (pixel+strips)
-treeplotter.loop_over_files("/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelstrips", "samples.cfg", plot_config, tree_folder_name="PreSelection", cutstring = my_cuts, suffix="_long", ignore_samples="g1800_chi1400", folder="./plots")
+treeplotter.loop_over_files("/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelstrips", "samples.cfg", plot_config, tree_folder_name="PreSelection", cutstring = my_cuts, suffix="_long", ignore_samples="g1800_chi1400", folder="./plots")
 
 
 

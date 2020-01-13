@@ -2,7 +2,7 @@ from ROOT import *
 from random import shuffle
 from glob import glob
 
-skimDirectory = '/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/Skims/'
+skimDirectory = '/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/Skims'
 sigfilelist = glob('Signal/*.root')
 print 'sigfilelist', sigfilelist
 
@@ -64,11 +64,14 @@ CategoryKeysBigToSmall = ['WJetsToLNu','TTJets','QCD','ZJetsToNuNu','Diboson','D
 CategoryKeysSmallToBig = list(CategoryKeysBigToSmall)
 CategoryKeysSmallToBig.reverse()
 for category in CategoryKeysSmallToBig:
-        for subcategory in SubcategoryChainDictsByCategoryDict[category]:
-            fname = skimDirectory+'/Background/skim_'+subcategory+'.root'
-            print 'processing', fname
-            fnameWithRedirector = fname.replace('/eos/uscms', 'root://cmsxrootd.fnal.gov/')
-            SubcategoryChainDictsByCategoryDict[category][subcategory].Add(fnameWithRedirector)
+    for subcategory in SubcategoryChainDictsByCategoryDict[category]:
+        fname = skimDirectory+'/Background/skim_'+subcategory+'.root'
+        print 'processing', fname
+        # fnameWithRedirector = fname.replace('/eos/uscms', 'root://cmsxrootd.fnal.gov/')
+        fnameWithRedirector = fname.replace('/eos/uscms', 'root://cmseos.fnal.gov/')
+        SubcategoryChainDictsByCategoryDict[category][subcategory].Add(fnameWithRedirector)
+        print "fname ",fnameWithRedirector
+        print "Category %s, events %i"%(category,SubcategoryChainDictsByCategoryDict[category][subcategory].GetEntries())
 
 #sigfilelist = glob(skimDirectory+'/Signal/*.root')
 smallsigfilelist = list(sigfilelist)
