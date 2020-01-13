@@ -346,7 +346,7 @@ You are looking at a couple of observables that are key to selecting signal disa
 We will now plot the signal alongside with the stacked main MC backgrounds on track level. The script ```plot_track_variables.py``` contains some predefined plots for ```treeplotter.sh```:
 
 ```
-cd tools
+$ cd tools
 $ ./plot_track_variables.py
 ```
 
@@ -464,7 +464,7 @@ TMVA stores the output by default in "output.root" and a folder containing the w
 
 ```
 cfg_dict = {
-    "configuration 1": ["./path/to/tmva/output.root", "/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/*.root", "samples.cfg"],
+    "configuration 1": ["./path/to/tmva/output.root", "/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/*.root", "samples.cfg"],
    }
 ```
 
@@ -528,7 +528,7 @@ length is 30 cm. Have a look  in the pre-made pyroot script to skim signal event
 tools/SkimTreeMaker.py, and after a quick glance, run the script:
 
 ```
-python tools/SkimTreeMaker.py /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/Ntuples/g1800_chi1400_27_200970_step4_30.root
+python tools/SkimTreeMaker.py /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/Ntuples/g1800_chi1400_27_200970_step4_30.root
 ```
 
 
@@ -704,8 +704,8 @@ python tools/closurePromptBkg.py output/totalweightedbkgsDataDrivenMC.root outpu
 You can also copy the real data versions of the control region histograms:
 
 ```
-cp /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/totalweightedbkgs*.root output/
-cp -r /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/mergedRoots .
+cp /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/totalweightedbkgs*.root output/
+cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/mergedRoots .
 ```
 
 It is also important to validate the procedure in the real data. A good test region is a ttbar-enhanced control region, where we select one good muon or electron and at least one b-tagged jet. The test is made in the low MHT sideband from 100-250:
@@ -756,9 +756,9 @@ Once you are ready to run over the complete set of ntuples using condor submissi
 
 ```
 cd $CMSSW_BASE/..
-tar -czf gridpack.tgz CMSSW_10_1_0
-mkdir CMSSW_10_1_0/src/cmsdas2019/tools/submission
-mv gridpack.tgz CMSSW_10_1_0/src/cmsdas2019/tools/submission/
+tar -czf gridpack.tgz CMSSW_10_6_4
+mkdir CMSSW_10_6_4/src/2020/tools/submission
+mv gridpack.tgz CMSSW_10_6_4/src/2020/tools/submission/
 cd -
 ```
 

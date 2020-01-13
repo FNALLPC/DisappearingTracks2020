@@ -17,6 +17,7 @@ from time import sleep
 from ROOT import *
 from array import array
 from utils import *
+ 
 gStyle.SetOptStat(0)
 
 #from rgsexamples import *
@@ -46,7 +47,7 @@ def main():
 	x, y = array( 'd' ), array( 'd' )
 	zmax = 0
 	izmax = -1
-	sys = 0.3 #fractional uncertainty on b
+	sys = 0.5 #fractional uncertainty on b
 
 	msize = 0.30  # marker size for points in ROC plot
 	xbins =  25   # number of bins in x (background)
@@ -69,9 +70,11 @@ def main():
 		s = t.count_s
 		b = t.count_b
 		if not t.NJets<7: continue
-		if b<.1: continue
+		if b<0.5: continue
 		if not s>0.01: continue
-		z = s/TMath.Sqrt(b+pow(sys*b,2))
+		#z = s/TMath.Sqrt(b+pow(sys*b,2))
+		z = RooStats.NumberCountingUtils.BinomialExpZ(s, b, sys);
+								     
 		if z>zmax: 
 			zmax = z
 			izmax = ientry
@@ -87,7 +90,9 @@ def main():
 	t.Show(izmax)
 	s = t.count_s
 	b = t.count_b
-	z = s/TMath.Sqrt(b+pow(sys*b,2))
+	#z = s/TMath.Sqrt(b+pow(sys*b,2))
+	z = RooStats.NumberCountingUtils.BinomialExpZ(s, b, sys);
+
 	print 's=%.2f, b=%.2f, z=%.2f' % (s, b, z)
 	groc = TGraph( n, x, y )
 	groc.SetLineColor( 1 )
