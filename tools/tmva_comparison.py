@@ -27,6 +27,10 @@ def get_TMVA_effs(tmva_output_file):
         list_classifier.append(classifier)
         list_sg_eff.append(S)
         list_bg_eff.append(B)
+    S = list_sg_eff.pop(0)
+    B = list_bg_eff.pop(0)
+    list_sg_eff.append(S)
+    list_bg_eff.append(B)
 
     fin.Close()
     return list_classifier, list_sg_eff, list_bg_eff
@@ -97,13 +101,13 @@ def main(output_filename, tmva_files):
         hist_list[-1].SetFillColor(color)
 
         if len(hist_list) == 1:
-            hist_list[-1].Draw("ap")
+            hist_list[-1].Draw("alp")
         else:
-            hist_list[-1].Draw("p same")
+            hist_list[-1].Draw("lp same")
         
         hist_list[-1].SetTitle(";#epsilon_{S};background rejection (1 - #epsilon_{B})")
         hist_list[-1].GetXaxis().SetLimits(0,1)
-        hist_list[-1].GetYaxis().SetRangeUser(0.9,1)
+        hist_list[-1].GetYaxis().SetRangeUser(0.5,1)
         hist_list[-1].GetYaxis().SetTitleOffset(2.0)
         hist_list[-1].GetYaxis().SetNdivisions(3)
 
