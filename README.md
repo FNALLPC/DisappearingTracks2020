@@ -393,7 +393,7 @@ The configuration and training of the BDT is set up in a ROOT macro, tmva.cxx. I
 
 <center>
 
-![](https://raw.githubusercontent.com/LongLivedSusy/cmsdas/master/tools/EstimateBackground/FakeBkg/tmva-gui.png)
+![](https://raw.githubusercontent.com/LongLivedSusy/cmsdas/master/etc/tmva-gui.png)
 </center>
 
 You can find the TMVA documentation [here](https://root.cern.ch/download/doc/tmva/TMVAUsersGuide.pdf). The most imporant functions accessible here are:
