@@ -43,6 +43,7 @@ var_Met = np.zeros(1,dtype=float)
 var_Mht = np.zeros(1,dtype=float)
 var_Ht = np.zeros(1,dtype=float)
 var_MinDeltaPhiMetJets = np.zeros(1,dtype=float)
+var_MinDeltaPhiMhtJets = np.zeros(1,dtype=float)
 var_NJets = np.zeros(1,dtype=int)
 var_BTags = np.zeros(1,dtype=int)
 var_NLeptons = np.zeros(1,dtype=int)
@@ -85,6 +86,7 @@ tEvent.Branch('Met', var_Met,'Met/D')
 tEvent.Branch('Mht', var_Mht,'Mht/D')
 tEvent.Branch('Ht', var_Ht,'Ht/D')
 tEvent.Branch('MinDeltaPhiMetJets', var_MinDeltaPhiMetJets,'MinDeltaPhiMetJets/D')
+tEvent.Branch('MinDeltaPhiMhtJets', var_MinDeltaPhiMhtJets,'MinDeltaPhiMhtJets/D')
 tEvent.Branch('NJets', var_NJets,'NJets/I')
 tEvent.Branch('BTags', var_BTags,'BTags/I')
 tEvent.Branch('NLeptons', var_NLeptons,'NLeptons/I')
@@ -196,6 +198,7 @@ for ientry in range(nentries):
             
     var_Ht[0] = ht
     var_MinDeltaPhiMetJets[0] = mindphi
+    var_MinDeltaPhiMhtJets[0] = mindphi
     var_BTags[0] = nb
     var_NLeptons[0] = c.NElectrons+c.NMuons
 

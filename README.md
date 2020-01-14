@@ -386,10 +386,10 @@ $ cd -
 Test your TMVA setup by running a minimal example:
 
 ```bash
-$ root tmva.cxx
+$ ./run_tmva.sh <tag>
 ```
 
-The configuration and training of the BDT is set up in a ROOT macro, tmva.cxx. If everything went well, you will see the TMVA GUI which you can use to evaluate the training and how well you did:
+This will create a subdirectory named "tag" where the output of the BDT is stored. The configuration and training of the BDT is set up in a ROOT macro, tmva.cxx. If everything went well, you will see the TMVA GUI which you can use to evaluate the training and how well you did:
 
 <center>
 
@@ -461,7 +461,7 @@ Note that by changing the number of events, you need to adjust the "Nev" variabl
 ##### Comparing TMVA results
 
 TMVA stores the output by default in "output.root" and a folder containing the weights of the BDT along with a C helper class to apply the weights to a given event. You can use tmva_comparison.py to overlay different ROC curves, which you can specify in the last line: 
-
+Add a line for each BDT you'd like to compare, with the appropriate directory defined by the tag provided earlier.
 ```python
 cfg_dict = {
     "configuration 1": ["./path/to/tmva/output.root", "/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/*.root", "samples.cfg"],

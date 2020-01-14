@@ -113,5 +113,6 @@ def get_get_bdt_cut_value(tmva_output_file, output_filename, fNSignal=-1, fNBack
 if __name__ == "__main__":
     #print get_get_bdt_cut_value("tmva/newpresel-200-4-short/output.root", False)
     #print get_get_bdt_cut_value("tmva/newpresel-200-4-medium/output.root", False)
-    print get_get_bdt_cut_value("../fake-tracks/newpresel2-200-4-medium/output.root", False)
-    print get_get_bdt_cut_value("../fake-tracks/newpresel3-200-4-short/output.root", False)
+    #print get_get_bdt_cut_value("../fake-tracks/newpresel2-200-4-medium/output.root", False)
+    #print get_get_bdt_cut_value("../track-tag/newpresel3-200-4-short/output.root", False)
+    print get_get_bdt_cut_value("../track-tag/test/output.root", False)
