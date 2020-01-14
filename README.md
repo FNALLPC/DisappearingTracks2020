@@ -90,17 +90,17 @@ The exact definitions are given in the reco::TrackBase [header file](https://git
 
 Create ```print.py``` (for example ```vim print.py```, or use your favorite text editor), then copy-paste the following code and run it (```python print.py```). The ```tracks_and_vertices.root``` data file is already referenced:
 
-```
+```python
 import DataFormats.FWLite as fwlite
 events = fwlite.Events("root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/tracking/tracks_and_vertices.root")
 tracks = fwlite.Handle("std::vector<reco::Track>")
 
 for i, event in enumerate(events):
-if i >= 5: break            # only the first 5 events
-print "Event", i
-event.getByLabel("generalTracks", tracks)
-for j, track in enumerate(tracks.product()):
-print "    Track", j, track.charge()/track.pt(), track.phi(), track.eta(), track.dxy(), track.dz()
+    if i >= 5: break            # only the first 5 events
+    print "Event", i
+    event.getByLabel("generalTracks", tracks)
+    for j, track in enumerate(tracks.product()):
+        print "    Track", j, track.charge()/track.pt(), track.phi(), track.eta(), track.dxy(), track.dz()
 ```
 
 The first three lines load the FWLite framework, the data file, and prepare a handle for the track collection using its full C++ name (```std::vector```). In each event, we load the tracks labeled "generalTracks" and loop over them, printing out the five basic track variables for each.
