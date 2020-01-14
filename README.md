@@ -411,9 +411,9 @@ Button (5a) reveals the "receiver-operator curve", or ROC. For each event, the s
 
 Have a look at the tmva.cxx macro. On the top, you can specify whether you want to train using pixel-only or pixel+strips tracks by adjusting the path. After that, the signal and the relevant background files are added:
 
-* W jets -> lepton + neutrino binned in HT
-* TTbar jets binned in HT
-* Drell-Yan jets -> dilepton binned in HT
+* (W &rightarrow; l&nu;) + jets binned in H<sub>T</sub>
+* tt&#773; + jets binned in H<sub>T</sub>
+* (Z/&gamma;* &rightarrow; l<sup>+</sup>l<sup>-</sup>) + jets (Drell-Yan) binned in H<sub>T</sub>
 
 Each sample is added to TMVA with the correct weight of cross section * luminosity / number of events.
 
