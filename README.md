@@ -477,6 +477,7 @@ $ python tmva_comparison.py
 ##### Selecting a lower cut on the BDT classifier
 
 After you have decided on a BDT configuration, you need to select a lower cut on the BDT classifier to separate signal tracks. One possible way to do this is to calculate the significance Z = S/sqrt(S+B) for each combination of signal and background efficiency, and then to determine the BDT classifier value with the highest significance:
+First update the last line of best_tmva_significance.py to point to your output root file.
 
 ```bash
 $ python best_tmva_significance.py
