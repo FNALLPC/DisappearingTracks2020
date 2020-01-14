@@ -23,7 +23,7 @@ print 'isDasAndSignal?', isDasAndSignal
 # files specified with optional wildcards @ command line #
 ##########################################################
 try: infilenames = sys.argv[1]
-except: infilenames = '/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/Ntuples/g1800_chi1400_27_200970_step4_30.root'
+except: infilenames = '/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/Ntuples/g1800_chi1400_27_200970_step4_100.root'
 
 
 #############################################

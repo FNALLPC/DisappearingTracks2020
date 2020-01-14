@@ -69,8 +69,8 @@ def main():
 		t.GetEntry(ientry)
 		s = t.count_s
 		b = t.count_b
-		if not t.NJets<7: continue
-		if b<0.5: continue
+		#if not t.NJets<7: continue
+		if b<0.1: continue
 		if not s>0.01: continue
 		#z = s/TMath.Sqrt(b+pow(sys*b,2))
 		z = RooStats.NumberCountingUtils.BinomialExpZ(s, b, sys);

@@ -20,14 +20,14 @@ The exercise is organized in sections as follows: First, the recipe for setting 
 
 First, [login](https://uscms.org/uscms_at_work/physics/computing/getstarted/uaf.shtml#prerequisites) to a cmslpc node
 
-```
+```bash
 ssh -y <username>@cmslpc-sl7.fnal.gov
 source /cvmfs/cms.cern.ch/cmsset_default.csh
 ```
 
 Then create a CMSSW working environment in your home folder: 
 
-```
+```bash
 mkdir longlivedLE
 cd longlivedLE
 SCRAM_ARCH=slc7_amd64_gcc700
@@ -37,7 +37,7 @@ cmsrel CMSSW_10_6_4
 Change to your newly created working environment and initialize the 
 CMSSW software environment (you will need to do this step every time you login): 
 
-```
+```bash
 cd CMSSW_10_6_4/src
 cmsenv
 cd ../..
@@ -45,7 +45,7 @@ cd ../..
 
 Now you need to clone the git repository which contains the analysis-specific code: 
 
-```
+```bash
 git clone git@github.com:FNALLPC/DisappearingTracks2020
 cd DisappearingTracks2020
 
@@ -63,7 +63,7 @@ We'll start with an introduction to using tracks for analyses in the era of larg
 
 We will be using 10.569 events from 2017 data (Run2017F_SingleMuon_AOD_17Nov2017-v1). This subset of the data is small enough to be easily accessible as a file. Set up a working area and copy the data file to your home directory: 
 
-```
+```bash
 mkdir tracking-intro
 cd tracking-intro
 ```
@@ -90,17 +90,17 @@ The exact definitions are given in the reco::TrackBase [header file](https://git
 
 Create ```print.py``` (for example ```vim print.py```, or use your favorite text editor), then copy-paste the following code and run it (```python print.py```). The ```tracks_and_vertices.root``` data file is already referenced:
 
-```
+```python
 import DataFormats.FWLite as fwlite
 events = fwlite.Events("root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/tracking/tracks_and_vertices.root")
 tracks = fwlite.Handle("std::vector<reco::Track>")
 
 for i, event in enumerate(events):
-if i >= 5: break            # only the first 5 events
-print "Event", i
-event.getByLabel("generalTracks", tracks)
-for j, track in enumerate(tracks.product()):
-print "    Track", j, track.charge()/track.pt(), track.phi(), track.eta(), track.dxy(), track.dz()
+    if i >= 5: break            # only the first 5 events
+    print "Event", i
+    event.getByLabel("generalTracks", tracks)
+    for j, track in enumerate(tracks.product()):
+        print "    Track", j, track.charge()/track.pt(), track.phi(), track.eta(), track.dxy(), track.dz()
 ```
 
 The first three lines load the FWLite framework, the data file, and prepare a handle for the track collection using its full C++ name (```std::vector```). In each event, we load the tracks labeled "generalTracks" and loop over them, printing out the five basic track variables for each.
@@ -122,49 +122,49 @@ Update the file ```print.py``` with the following lines:
 
 Add a handle to the MVA values:
 
-```
+```python
 MVAs   = fwlite.Handle("std::vector<float>")
 ```
 
 The event loop should be updated to this: 
 
-```
+```python
 for i, event in enumerate(events):
-if i >= 5: break            # only the first 5 events
-print "Event", i
-event.getByLabel("generalTracks", tracks)
-event.getByLabel("generalTracks", "MVAValues", MVAs)
+    if i >= 5: break            # only the first 5 events
+    print "Event", i
+    event.getByLabel("generalTracks", tracks)
+    event.getByLabel("generalTracks", "MVAValues", MVAs)
 
-numTotal = tracks.product().size()
-numLoose = 0
-numTight = 0
-numHighPurity = 0
+    numTotal = tracks.product().size()
+    numLoose = 0
+    numTight = 0
+    numHighPurity = 0
 
-for j, (track, mva) in enumerate(zip(tracks.product(), MVAs.product())):
-if track.quality(track.qualityByName("loose")):      numLoose      += 1
-if track.quality(track.qualityByName("tight")):      numTight      += 1
-if track.quality(track.qualityByName("highPurity")): numHighPurity += 1
+    for j, (track, mva) in enumerate(zip(tracks.product(), MVAs.product())):
+        if track.quality(track.qualityByName("loose")):      numLoose      += 1
+        if track.quality(track.qualityByName("tight")):      numTight      += 1
+        if track.quality(track.qualityByName("highPurity")): numHighPurity += 1
 
-print "    Track", j,
-print track.charge()/track.pt(),
-print track.phi(),
-print track.eta(),
-print track.dxy(),
-print track.dz(),
-print track.numberOfValidHits(),
-print track.algoName(),
-print mva
+        print "    Track", j,
+        print track.charge()/track.pt(),
+        print track.phi(),
+        print track.eta(),
+        print track.dxy(),
+        print track.dz(),
+        print track.numberOfValidHits(),
+        print track.algoName(),
+        print mva
 
-print "Event", i,
-print "numTotal:", numTotal,
-print "numLoose:", numLoose,
-print "numTight:", numTight,
-print "numHighPurity:", numHighPurity
+    print "Event", i,
+    print "numTotal:", numTotal,
+    print "numLoose:", numLoose,
+    print "numTight:", numTight,
+    print "numHighPurity:", numHighPurity
 ```
 
 To plot some track variables, use ROOT and make a python loop like in the example below (name this file ```plot_track_quantities.py```).
 
-```
+```python
 import DataFormats.FWLite as fwlite
 import ROOT
 
@@ -177,13 +177,13 @@ hist_phi  = ROOT.TH1F("phi", "phi", 100, -3.2, 3.2)
 hist_normChi2 = ROOT.TH1F("normChi2", "normChi2", 100, 0.0, 10.0)
 
 for i, event in enumerate(events):
-event.getByLabel("generalTracks", tracks)
-for track in tracks.product():
-hist_pt.Fill(track.pt())
-hist_eta.Fill(track.eta())
-hist_phi.Fill(track.phi())
-hist_normChi2.Fill(track.normalizedChi2())
-if i > 1000: break
+    event.getByLabel("generalTracks", tracks)
+    for track in tracks.product():
+        hist_pt.Fill(track.pt())
+        hist_eta.Fill(track.eta())
+        hist_phi.Fill(track.phi())
+        hist_normChi2.Fill(track.normalizedChi2())
+    if i > 1000: break
 
 c = ROOT.TCanvas( "c", "c", 800, 800)
 
@@ -204,7 +204,7 @@ c.SaveAs("track_normChi2.png")
 
 Run this plotting script with
 
-```
+```bash
 python plot_track_quantities.py
 ``` 
 
@@ -214,7 +214,7 @@ Unlike calorimeter showers, tracks can usually be interpreted as particle vector
 
 The analyzer does not even need to calculate the particle's momentum from the track parameters: there are member functions for that. Particle's transverse momentum, momentum magnitude, and all of its components can be read through the following lines (let's name this new file ```kinematics.py```):
 
-```
+```python
 import DataFormats.FWLite as fwlite
 import ROOT
 
@@ -222,17 +222,17 @@ events = fwlite.Events("root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exer
 tracks = fwlite.Handle("std::vector<reco::Track>")
 
 for i, event in enumerate(events):
-event.getByLabel("generalTracks", tracks)
-for track in tracks.product():
-print track.pt(), track.p(), track.px(), track.py(), track.pz()
-if i > 100: break
+    event.getByLabel("generalTracks", tracks)
+    for track in tracks.product():
+        print track.pt(), track.p(), track.px(), track.py(), track.pz()
+    if i > 100: break
 ```
 
 <b>Exercise: Now we can use this to do some kinematics. Assuming that the particle is a pion, calculate its kinetic energy.</b>
 Note: Identifying the particle that made the track is difficult: the mass of some low-momentum tracks can be identified by their energy loss, called dE/dx, and electrons and muons can be identified by signatures in other subdetectors. Without any other information, the safest assumption is that a randomly chosen track is a pion, since hadron collisions produce a lot of pions.
 
 The pion mass is 0.140 GeV (all masses in CMSSW are in GeV). You can get a square root function by typing 
-```
+```python
 import math
 print math.sqrt(4.0)
 ```
@@ -243,25 +243,25 @@ Once you've tried to implement this, you can take a look at the solution ![here]
 
 As a second exercise, let's compute the vector-sum momentum for all charged particles in each event. Although this neglects the momentum carried away by neutral particles, it roughly approximates the total momentum of the pp collision. Add the following to ```kinematics.py```.
 
-```
+```python
 px_histogram = ROOT.TH1F("px", "px", 100, -1000.0, 1000.0)
 py_histogram = ROOT.TH1F("py", "py", 100, -1000.0, 1000.0)
 pz_histogram = ROOT.TH1F("pz", "pz", 100, -1000.0, 1000.0)
 
 events.toBegin()                # start event loop from the beginning
 for event in events:
-event.getByLabel("generalTracks", tracks)
-total_px = 0.0
-total_py = 0.0
-total_pz = 0.0
-for track in tracks.product():
-total_px += track.px()
-total_py += track.py()
-total_pz += track.pz()
-px_histogram.Fill(total_px)
-py_histogram.Fill(total_py)
-pz_histogram.Fill(total_pz)
-# no break statement; we're looping over all events
+    event.getByLabel("generalTracks", tracks)
+    total_px = 0.0
+    total_py = 0.0
+    total_pz = 0.0
+    for track in tracks.product():
+        total_px += track.px()
+        total_py += track.py()
+        total_pz += track.pz()
+    px_histogram.Fill(total_px)
+    py_histogram.Fill(total_py)
+    pz_histogram.Fill(total_pz)
+    # no break statement; we're looping over all events
 
 c = ROOT.TCanvas ("c" , "c", 800, 800)
 px_histogram.Draw()
@@ -276,14 +276,14 @@ While this is running, ask yourself what you expect the total_px, total_py, tota
 
 Finally, let's look for resonances. Given two tracks,   
 
-```
+```python
 one = tracks.product()[0]
 two = tracks.product()[1]
 ```
 
 the invariant mass may be calculated as 
 
-```
+```python
 total_energy = math.sqrt(0.140**2 + one.p()**2) + math.sqrt(0.140**2 + two.p()**2)
 total_px = one.px() + two.px()
 total_py = one.py() + two.py()
@@ -299,14 +299,14 @@ To increase the chances that pairs of randomly chosen tracks are descendants of 
 
 Normally, one would access muons through the reco::Muon object since this contains additional information about the quality of the muon hypothesis. For simplicity, we will access their track collection in the same way that we have been accessing the main track collection. We only need to replace "generalTracks" with "globalMuons". Add the following loop to ```kinematics.py```. 
 
-```
+```python
 events.toBegin()
 for i, event in enumerate(events):
-if i >= 5: break            # only the first 5 events
-print "Event", i
-event.getByLabel("globalMuons", tracks)
-for j, track in enumerate(tracks.product()):
-print "    Track", j, track.charge()/track.pt(), track.phi(), track.eta(), track.dxy(), track.dz()
+    if i >= 5: break            # only the first 5 events
+    print "Event", i
+    event.getByLabel("globalMuons", tracks)
+    for j, track in enumerate(tracks.product()):
+        print "    Track", j, track.charge()/track.pt(), track.phi(), track.eta(), track.dxy(), track.dz()
 ```
 
 Notice how few muon tracks there are compared to the same code executed for "generalTracks". In fact, you only see as many muons as you do because this data sample was collected with a muon trigger. (The muon definition in the trigger is looser than the "globalMuons" algorithm, which is why there are some events with fewer than two "globalMuons".)
@@ -324,7 +324,7 @@ Now that you got your feet wet with tracking, we can start with the disappearing
 In the following, we will be working with ntuples which contain a selection of useful tracking variables. They have been created from AOD and miniAOD datasets which you've used in the previous section. For this section in particular, ntuples which only contain tracks are used. From each event in the considered datasets, tracks with pT>10 GeV were stored in the ntuple.
 
 Let's start by having a look at some of the tracking variables of signal tracks:
-```
+```bash
 root -l root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/signal.root 
 root -l root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelstrips/signal.root 
 root [0] new TBrowser
@@ -334,7 +334,7 @@ With TBrowser, open the "PreSelection" tree and take a look at the variables. Th
 Take some time to think about which variables could be relevant for tagging disappearing tracks. The track length is connected to the number of hits and layers with a measurement. Missing inner, middle, and outer hits indicate missing hits on the track trajectory adjacent to the interaction point, within the sequence of tracker hits, and adjacent to the ECAL, respectively. DxyVtx and dzVtx indicate the impact parameter with respect to the primary vertex.
 
 One aspect of a disappearing track is that it has some number of missing outer hits. You can correlate this property with other variables, such as the impact parameter:
-```
+```bash
 root [0] PreSelection->Draw("nMissingOuterHits")
 root [0] PreSelection->Draw("nMissingOuterHits:dxyVtx", "dxyVtx<0.1", "COLZ")
 root [0] PreSelection->Draw("nMissingOuterHits:dxyVtx", "dxyVtx<0.01", "COLZ")
@@ -345,7 +345,7 @@ You are looking at a couple of observables that are key to selecting signal disa
 
 We will now plot the signal alongside with the stacked main MC backgrounds on track level. The script ```plot_track_variables.py``` contains some predefined plots for ```treeplotter.sh```:
 
-```
+```bash
 $ cd tools
 $ ./plot_track_variables.py
 ```
@@ -356,7 +356,7 @@ The plots will appear in the `/plots` folder.
 
 Add your own cut (e.g. a higher cut on pT): Set
 
-```
+```python
 my_cuts = "pt>50"
 ```
 
@@ -375,7 +375,7 @@ We define two basic track categories. Tracks which are reconstructed in the pixe
 The Boosted decision tree is a rather popular type of multivariate classifier. An introduction to boosted decision trees is given [here](http://www.if.ufrj.br/~helder/20070706_hh_bdt.pdf). What most multivariant classifiers have in common, including BDTs, is that they take as input a set of properties (measurable numbers) of a signal event candidate, and output (typically a single) number that indicates how likely it is the event corresponds to true signal. We will train two separate BDTs, one for each track category, using TMVA ([Toolkit for Multivariate Analysis](https://root.cern/tmva)) included in ROOT.
 
 In the exercise repository, change into track-selection and prepare a CMSSW 8.0.28 environment in order to use the correct TMVA version for the exercise:
-```
+```bash
 $ cd track-tag
 $ cmsrel CMSSW_8_0_28
 $ cd CMSSW_8_0_28/src
@@ -385,7 +385,7 @@ $ cd -
 
 Test your TMVA setup by running a minimal example:
 
-```
+```bash
 $ root tmva.cxx
 ```
 
@@ -393,7 +393,7 @@ The configuration and training of the BDT is set up in a ROOT macro, tmva.cxx. I
 
 <center>
 
-![](https://raw.githubusercontent.com/LongLivedSusy/cmsdas/master/tools/EstimateBackground/FakeBkg/tmva-gui.png)
+![](https://raw.githubusercontent.com/LongLivedSusy/cmsdas/master/etc/tmva-gui.png)
 </center>
 
 You can find the TMVA documentation [here](https://root.cern.ch/download/doc/tmva/TMVAUsersGuide.pdf). The most imporant functions accessible here are:
@@ -411,22 +411,22 @@ Button (5a) reveals the "receiver-operator curve", or ROC. For each event, the s
 
 Have a look at the tmva.cxx macro. On the top, you can specify whether you want to train using pixel-only or pixel+strips tracks by adjusting the path. After that, the signal and the relevant background files are added:
 
-* W jets -> lepton + neutrino binned in HT
-* TTbar jets binned in HT
-* Drell-Yan jets -> dilepton binned in HT
+* (W &rightarrow; l&nu;) + jets binned in H<sub>T</sub>
+* tt&#773; + jets binned in H<sub>T</sub>
+* (Z/&gamma;* &rightarrow; l<sup>+</sup>l<sup>-</sup>) + jets (Drell-Yan) binned in H<sub>T</sub>
 
 Each sample is added to TMVA with the correct weight of cross section * luminosity / number of events.
 
 Below that, you can add/modifiy variables used for the training, with 'F' indicating float and 'I' indicating integer variables:
 
-```
+```c++
 factory->AddVariable("dzVtx",'F');
 factory->AddVariable("nValidTrackerHits",'I');
 ```
 
 The configuration of the BDT is made with
 
-```
+```c++
 factory->BookMethod(TMVA::Types::kBDT, "BDT", "NTrees=200:MaxDepth=4");
 ```
 
@@ -451,7 +451,7 @@ Relevant tracking variables available in the tree are:
 ##### Some hints:
 The TCut variables "mycuts" and "mycutb" can be used to apply cuts before the BDT training. This can be useful to exclude certain ranges of input parameters to improve BDT performance, as well as to set the number of signal and background events used for training and testing. The latter may become necessary when exploring many different TMVA configurations. For example, to consider only tracks with pT>50 GeV and 100 events for training and testing in total, write:
 
-```
+```c++
 TCut mycuts = ("pt>50 && event<100");
 TCut mycutb = ("pt>50 && event<100");
 ```
@@ -462,7 +462,7 @@ Note that by changing the number of events, you need to adjust the "Nev" variabl
 
 TMVA stores the output by default in "output.root" and a folder containing the weights of the BDT along with a C helper class to apply the weights to a given event. You can use tmva_comparison.py to overlay different ROC curves, which you can specify in the last line: 
 
-```
+```python
 cfg_dict = {
     "configuration 1": ["./path/to/tmva/output.root", "/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/*.root", "samples.cfg"],
    }
@@ -470,15 +470,16 @@ cfg_dict = {
 
 Run it with
 
-```
+```bash
 $ python tmva_comparison.py
 ```
 
 ##### Selecting a lower cut on the BDT classifier
 
 After you have decided on a BDT configuration, you need to select a lower cut on the BDT classifier to separate signal tracks. One possible way to do this is to calculate the significance Z = S/sqrt(S+B) for each combination of signal and background efficiency, and then to determine the BDT classifier value with the highest significance:
+First update the last line of best_tmva_significance.py to point to your output root file.
 
-```
+```bash
 $ python best_tmva_significance.py
 ```
 
@@ -495,7 +496,7 @@ comparing signal and background events.
 
 ### 4.a) Background events
 
-```
+```bash
 python tools/CharacterizeEvents.py
 ```
 
@@ -527,7 +528,7 @@ where 1800 GeV is the gluino mass, 1400 is the LSP mass, and the chargino proper
 length is 30 cm. Have a look  in the pre-made pyroot script to skim signal events, 
 tools/SkimTreeMaker.py, and after a quick glance, run the script:
 
-```
+```bash
 python tools/SkimTreeMaker.py /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/Ntuples/g1800_chi1400_27_200970_step4_30.root
 ```
 
@@ -537,7 +538,7 @@ python tools/SkimTreeMaker.py /eos/uscms/store/user/cmsdas/2020/long_exercises/D
 Create a directory called Signal for the new file, move the new file into Signal/ 
 and re-run the plot maker:
 
-```
+```bash
 mkdir Signal
 mv skim_g1800_chi1400_27_200970_step4_30.root Signal/
 python tools/CharacterizeEvents.py
@@ -559,7 +560,7 @@ Let's get systematic with the optimization. Many tools exist that help to select
 One interesting tool that seeks to overcome this curse of dimensionality is called a random grid search (RGS), which is documented in the publication, "Optimizing Event Selection with the Random Grid Search" https://arxiv.org/abs/1706.09907. RGS performs a scan over the observable hyperplane, using a set of available simulated signal (or background) events to define steps in the scan. For each step in the scan (each simulated event), a proposed selection set is defined taking the cut values to be the values of the observables of the event. We are going to run RGS on the signal/background samples, and compare the sensitivity of the selection to the hand-picked cuts you obtained previously.  
 
 
-```
+```bash
 #git clone https://github.com/hbprosper/RGS.git
 git clone https://github.com/sbein/RGS.git
 cd RGS/
@@ -572,12 +573,12 @@ Note: Harrison Prosper's repo is the master and has a nice readme; but for some 
 
 The first script to run is tools/rgs_train.py. Open this script up, edit the lumi appropriately (to 35900/pb), give the path to the signal event file you just created, and tweak anything else as you see fit. When finished, save and open tools/LLSUSY.cuts. This file specifies the observables you want RGS to scan over and cut on, as well as the type of cut to apply (greater than, less than, equal to, etc.). Run the (first) training RGS script:
 
-```
+```bash
 python tools/rgs_train.py
 ```
 This creates the file LLSUSY.root which contains a tree of signal and background counts for each possible selection set in the scan. To determine the most optimal cut set, run the (second) analysis RGS script:
 
-```
+```bash
 python tools/rgs_analysis.py
 ```
 This will print the optimum set of thresholds to the screen, as well as the signal and background count corresponding to each set of cuts, and an estimate of the signal significance, z.  How does the RGS optimal selection compare to your hand-picked selection? Hopefully better - if not, you are pretty darn good at eyeball optimization!
@@ -610,19 +611,19 @@ Kappa factors are derived using a data-driven tag and probe method. A well-recon
 
 The following command will run a script that generates histograms for the numberator (disappearing tracks) and denominator (prompt leptons) that are needed compute kappa:
 
-```
+```bash
 python tools/TagNProbeHistMaker.py --fnamekeyword Summer16.DYJetsToLL_M-50_Tune --dtmode PixAndStrips
 ```
 
 When the script has finished running, you can run the fairly generic script,
-```
+```bash
 python tools/OverlayTwoHists.py
 ```
 
 , which, as the name suggests, overlays two histograms and creates a ratio plot - in this case, it is taking actual histograms from your file. You'll notice that the statistics are very low. **Question: What are you looking at? What is its relevance to the analysis?** There is one bug in the tag and probe script. The tag lepton pT is too small small to be realistic in real data. For this part of the analysis in data, we'll use a single electron and single muon trigger with online thresholds of around 20-27 GeV. You should update the pT threshold on the tag.  
 
 One of you (maybe not all) can proceed to do a larger submission on the condor batch system, which will generate a higher statistics version of these plots. The script SubmitJobs_condor.py creates one job per input file, running the script specified in the first argument over each respective file. The output file for each job will be delivered to your Output directory. 
-```
+```bash
 mkdir output/
 mkdir jobs/
 
@@ -631,7 +632,7 @@ python tools/SubmitJobs_fnal.py --analyzer tools/TagNProbeHistMaker.py --fnameke
 
 ```
 After the jobs are submitted, the status of the jobs can be checked by:
-```
+```bash
 condor_q | <your user name> 
 #or simply
 condor_q 
@@ -639,7 +640,7 @@ condor_q
 
 When the jobs are finished, merge the files using an hadd (pronounced like "H"-add) command, After that, we'll proceed to computing the kappa factors from the merged histogram file: 
 
-```
+```bash
 mkdir RawKappaMaps
 python tools/mergeMcHists.py "RawKappaMaps/RawKapps_DYJets_PixOnly.root" "output/DYJetsToLL/TagnProbeHists_Summer16.DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_*PixOnly*.root"
 python tools/mergeMcHists.py "RawKappaMaps/RawKapps_DYJets_PixAndStrips.root" "output/DYJetsToLL/TagnProbeHists_Summer16.DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_*PixAndStrips*.root"
@@ -648,14 +649,14 @@ python tools/mergeMcHists.py "RawKappaMaps/RawKapps_DYJets_PixAndStrips.root" "o
 You should now have some higher statistics versions of your invariant mass plots. You can modify the OverlayTwoHists.py to draw the new plots.
 
 It is recommended to backup your files in RawKappaMaps:
-```
+```bash
 mv RawKappaMaps RawKappaMaps_backup
 cp -r /uscms_data/d3/sbein/RawKappaMaps .
 ```
 
 You now have access to the tag and probe histograms from MC and data. Too see the tag and probe invariant mass distributions in data and MC, you can do:
 
-```
+```bash
 mkdir pdfs
 mkdir pdfs/tagandprobe/
 python tools/CompareInvariantMass.py
@@ -667,7 +668,7 @@ You can scp and browse through your new files and look at the distributions of t
 
 
 To compute kappas from the merged histograms, and then proceed to view those kappa factors, create pdfs folders and run the following two scripts in sequence:
-```
+```bash
 mkdir pdfs/closure
 mkdir pdfs/closure/tpkappa
 source bashscripts/doKappFitting.sh
@@ -680,13 +681,13 @@ The script doKappFitting.sh calls the same python code python/ComputeKappa.py fo
 #### step 3. peform closure test
 Step 3 : Construct a **single lepton CR** and weight each event by the corresponding kappa factor. The result is the **background prediction in the SR** for the prompt electrons. The script called PromptBkgHistMaker.py creates histograms of these two populations, as well as the **"true" distributions**, which of course consist of events with a disappearing track in the signal region:
 
-```
+```bash
 python tools/PromptBkgHistMaker.py --fnamekeyword Summer16.WJetsToLNu_HT-800To1200
 ```
 
 If the script runs ok, edit it and add your new signal region from the RGS optimization, and then do another test run to ensure there is no crash. Then, again please just one of you, can proceed to submit a large number of jobs:
 
-```
+```bash
 python tools/SubmitJobs_fnal.py --analyzer tools/PromptBkgHistMaker.py --fnamekeyword Summer16.WJetsToLNu
 ```
 
@@ -694,7 +695,7 @@ After a few jobs accrue a bit in the Output directory, an hadd of the output fil
 
 Step 4: The histograms generated by this script are sufficient to generate a so-called *closure test.* Closure is a consistency check between the data-driven prediction and the truth in the signal region, all performed in simulation. 
 
-```
+```bash
 mkdir pdfs/closure/prompt-bkg/
 python tools/mergeMcHists.py output/totalweightedbkgsDataDrivenMC.root "output/Summer16.WJetsToLNu/PromptBkgHists_*Tune*.root"
 #python tools/closurePromptBkg.py <inputFile.root> <outputFile.root>
@@ -703,14 +704,14 @@ python tools/closurePromptBkg.py output/totalweightedbkgsDataDrivenMC.root outpu
 
 You can also copy the real data versions of the control region histograms:
 
-```
+```bash
 cp /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/totalweightedbkgs*.root output/
 cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/mergedRoots .
 ```
 
 It is also important to validate the procedure in the real data. A good test region is a ttbar-enhanced control region, where we select one good muon or electron and at least one b-tagged jet. The test is made in the low MHT sideband from 100-250:
 
-```
+```bash
 mkdir pdfs/closure/prompt-bkg-validation/
 python tools/closureDataValidation.py
 ```
@@ -748,13 +749,13 @@ There are different approaches to measure the fake rate. One approach is to use 
 
 Some tips: You can use ```fakerate_loop.py``` to loop over the events of the ntuples. In the event loop, you can add the dilepton selection. Test the script with
 
-```
+```bash
 ./fakerate_loop.py root://cmseos.fnal.gov//store/user/lpcsusyhad/sbein/cmsdas19/Ntuples/Summer16.WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_ext1_163_RA2AnalysisTree.root test.root
 ```
 
 Once you are ready to run over the complete set of ntuples using condor submission, first create a gridpack:
 
-```
+```bash
 cd $CMSSW_BASE/..
 tar -czf gridpack.tgz CMSSW_10_6_4
 mkdir CMSSW_10_6_4/src/2020/tools/submission
@@ -764,7 +765,7 @@ cd -
 
 Then submit your condor jobs:
 
-```
+```bash
 ./fakerate_submit.py
 ```
 
@@ -772,7 +773,7 @@ Afterwards, use ```fakerate_analyze.py``` to plot the dilepton invariant mass di
 
 Now, add the event cleaning in the main event loop:
 
-```
+```python
     # clean event (recalculate HT, MHT, n_Jets without the two reconstructed leptons):
     csv_b = 0.8838
     metvec = TLorentzVector()
@@ -823,7 +824,7 @@ Congratulations, you've made it! We can now put exlusion limits on the productio
 
 First, let's install the [Higgs combine](https://cms-hcomb.gitbooks.io/combine/content/) tool. It is recommended to run ``combine`` in a CMSSW 8.1.0 environment. Change to the parent directory of your CMSSW_10_1_0 folder, then do:
 
-```
+```bash
 export SCRAM_ARCH=slc6_amd64_gcc530
 cmsrel CMSSW_8_1_0
 cd CMSSW_8_1_0/src 
@@ -856,7 +857,7 @@ lumi  lnN    1.025       1.025
 
 Save this example datacard and run:
 
-```
+```bash
 combine test
 ```
 
