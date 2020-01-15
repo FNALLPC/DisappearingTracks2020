@@ -49,10 +49,6 @@ Now you need to clone the git repository which contains the analysis-specific co
 git clone git@github.com:FNALLPC/DisappearingTracks2020
 cd DisappearingTracks2020
 
-cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel2-200-4-medium-updated/ usefulthings/
-cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel3-200-4-short-updated/ usefulthings/
-cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/usefulthings/DataDrivenSmear_DYJets_Pix* usefulthings/
-cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/usefulthings/DataDrivenSmear_Run2016_Pix*.root usefulthings/
 ```
 
 ## 2.) Introduction to tracking
@@ -64,6 +60,7 @@ We'll start with an introduction to using tracks for analyses in the era of larg
 We will be using 10.569 events from 2017 data (Run2017F_SingleMuon_AOD_17Nov2017-v1). This subset of the data is small enough to be easily accessible as a file. Set up a working area and copy the data file to your home directory: 
 
 ```bash
+cd ..
 mkdir tracking-intro
 cd tracking-intro
 ```
