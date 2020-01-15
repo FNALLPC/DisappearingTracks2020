@@ -1,0 +1,14 @@
+
+                universe = vanilla
+                should_transfer_files = IF_NEEDED
+                log = job_18-12-18-17-44-26_0.sh.log$(Cluster)
+                executable = /bin/bash
+                arguments = job_18-12-18-17-44-26_0.sh
+                initialdir = /nfs/dust/cms/user/kutznerv/shorttrack/cutoptimization/tmva/newpresel3-200-4-short-updated/bird
+                error = job_18-12-18-17-44-26_0.sh.e$(Cluster)
+                output = job_18-12-18-17-44-26_0.sh.o$(Cluster)
+                notification = Never
+                
+                priority = 0
+                Queue
+            

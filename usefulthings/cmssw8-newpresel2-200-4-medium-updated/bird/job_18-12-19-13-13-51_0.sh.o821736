@@ -1,0 +1,290 @@
+  
+/afs/desy.de/user/k/kutznerv/cmssw/CMSSW_8_0_28
+running TMVA...
+Background path: /nfs/dust/cms/user/kutznerv/DisappTrksNtupleSidecarI7d/tracks-medium
+--- Factory                  : Parsing option string: 
+--- Factory                  : ... "V:!Silent:Color:Transformations=I:DrawProgressBar:AnalysisType=Classification"
+--- Factory                  : The following options are set:
+--- Factory                  : - By User:
+--- Factory                  :     V: "True" [Verbose flag]
+--- Factory                  :     Color: "True" [Flag for coloured screen output (default: True, if in batch mode: False)]
+--- Factory                  :     Transformations: "I" [List of transformations to test; formatting example: "Transformations=I;D;P;U;G,D", for identity, decorrelation, PCA, Uniform and Gaussianisation followed by decorrelation transformations]
+--- Factory                  :     Silent: "False" [Batch mode: boolean silent flag inhibiting any output from TMVA after the creation of the factory class object (default: False)]
+--- Factory                  :     DrawProgressBar: "True" [Draw progress bar to display training, testing and evaluation schedule (default: True)]
+--- Factory                  :     AnalysisType: "Classification" [Set the analysis type (Classification, Regression, Multiclass, Auto) (default: Auto)]
+--- Factory                  : - Default:
+--- Factory                  :     <none>
+--- Factory                  : You are running ROOT Version: 6.06/01, Dec 9, 2015
+--- Factory                  : 
+--- Factory                  : _/_/_/_/_/ _|      _|  _|      _|    _|_|   
+--- Factory                  :    _/      _|_|  _|_|  _|      _|  _|    _| 
+--- Factory                  :   _/       _|  _|  _|  _|      _|  _|_|_|_| 
+--- Factory                  :  _/        _|      _|    _|  _|    _|    _| 
+--- Factory                  : _/         _|      _|      _|      _|    _| 
+--- Factory                  : 
+--- Factory                  : ___________TMVA Version 4.2.1, Feb 5, 2015
+--- Factory                  : 
+--- DataSetInfo              : Added class "Signal"	 with internal class number 0
+--- Factory                  : Add Tree PreSelection of type Signal with 170228 events
+--- DataSetInfo              : Added class "Background"	 with internal class number 1
+--- Factory                  : Add Tree PreSelection of type Background with 2820884 events
+--- Factory                  : Add Tree PreSelection of type Background with 4748337 events
+--- Factory                  : Add Tree PreSelection of type Background with 8291335 events
+--- Factory                  : Add Tree PreSelection of type Background with 14932075 events
+--- Factory                  : Add Tree PreSelection of type Background with 20283109 events
+--- Factory                  : Add Tree PreSelection of type Background with 28396662 events
+--- Factory                  : Add Tree PreSelection of type Background with 6187877 events
+--- Factory                  : Add Tree PreSelection of type Background with 18830179 events
+--- Factory                  : Add Tree PreSelection of type Background with 2124990 events
+--- Factory                  : Add Tree PreSelection of type Background with 38123222 events
+--- Factory                  : Add Tree PreSelection of type Background with 1854589 events
+--- Factory                  : Add Tree PreSelection of type Background with 3549698 events
+--- Factory                  : Add Tree PreSelection of type Background with 5552607 events
+--- Factory                  : Add Tree PreSelection of type Background with 9122387 events
+--- Factory                  : Add Tree PreSelection of type Background with 15823935 events
+--- Factory                  : Add Tree PreSelection of type Background with 4662751 events
+--- Factory                  : Add Tree PreSelection of type Background with 9292079 events
+--- Factory                  : Preparing trees for training and testing...
+--- Factory                  : Booking method: [1mBDT[0m
+--- DataSetFactory           : Splitmode is: "RANDOM" the mixmode is: "SAMEASSPLITMODE"
+--- DataSetFactory           : Create training and testing trees -- looping over class "Signal" ...
+--- DataSetFactory           : Weight expression for class 'Signal': ""
+--- DataSetFactory           : Create training and testing trees -- looping over class "Background" ...
+--- DataSetFactory           : Weight expression for class 'Background': ""
+[1;31m--- <WARNING> DataSetFactory           : Input expression resolves to infinite value (NaN): ptErrOverPt2[0m
+[1;31m--- <WARNING> DataSetFactory           : Input expression resolves to infinite value (NaN): ptErrOverPt2[0m
+--- DataSetFactory           : Number of events in input trees (after possible flattening of arrays):
+--- DataSetFactory           :     Signal          -- number of events       : 170228  / sum of weights: 43.7412
+--- DataSetFactory           :     Background      -- number of events       : 194596716  / sum of weights: 8.09322e+08
+--- DataSetFactory           :     Signal     tree -- total number of entries: 170228
+--- DataSetFactory           :     Background tree -- total number of entries: 194596716
+--- DataSetFactory           : Preselection: (will NOT affect number of requested training and testing events)
+--- DataSetFactory           :     Signal     requirement: "pt>15 && abs(eta)<2.4 && passPFCandVeto==1 && trkRelIso<0.2 && dxyVtx<0.1 && dzVtx<0.1 && ptErrOverPt2<10 && nMissingMiddleHits==0 && nMissingOuterHits>=2 && trackQualityHighPurity==1"
+--- DataSetFactory           :     Signal          -- number of events passed: 129564  / sum of weights: 33.3481
+--- DataSetFactory           :     Signal          -- efficiency             : 0.762396
+--- DataSetFactory           :     Background requirement: "pt>15 && abs(eta)<2.4 && passPFCandVeto==1 && trkRelIso<0.2 && dxyVtx<0.1 && dzVtx<0.1 && ptErrOverPt2<10 && nMissingMiddleHits==0 && nMissingOuterHits>=2 && trackQualityHighPurity==1"
+--- DataSetFactory           :     Background      -- number of events passed: 1755171  / sum of weights: 3.63775e+07
+--- DataSetFactory           :     Background      -- efficiency             : 0.0449481
+--- DataSetFactory           :  you have opted for interpreting the requested number of training/testing events
+--- DataSetFactory           :  to be the number of events AFTER your preselection cuts
+--- DataSetFactory           :  you have opted for interpreting the requested number of training/testing events
+--- DataSetFactory           :  to be the number of events AFTER your preselection cuts
+--- DataSetFactory           : Weight renormalisation mode: "EqualNumEvents": renormalises all event classes ...
+--- DataSetFactory           :  such that the effective (weighted) number of events in each class is the same 
+--- DataSetFactory           :  (and equals the number of events (entries) given for class=0 )
+--- DataSetFactory           : ... i.e. such that Sum[i=1..N_j]{w_i} = N_classA, j=classA, classB, ...
+--- DataSetFactory           : ... (note that N_j is the sum of TRAINING events
+--- DataSetFactory           :  ..... Testing events are not renormalised nor included in the renormalisation factor!)
+--- DataSetFactory           : --> Rescale Signal     event weights by factor: 3886.75
+--- DataSetFactory           : --> Rescale Background event weights by factor: 0.00354459
+--- DataSetFactory           : Number of training and testing events after rescaling:
+--- DataSetFactory           : ------------------------------------------------------
+--- DataSetFactory           : Signal     -- training events            : 64782 (sum of weights: 64782) - requested were 0 events
+--- DataSetFactory           : Signal     -- testing events             : 64782 (sum of weights: 16.6674) - requested were 0 events
+--- DataSetFactory           : Signal     -- training and testing events: 129564 (sum of weights: 64798.7)
+--- DataSetFactory           : Signal     -- due to the preselection a scaling factor has been applied to the numbers of requested events: 0.76112
+--- DataSetFactory           : Background -- training events            : 877585 (sum of weights: 64782) - requested were 0 events
+--- DataSetFactory           : Background -- testing events             : 877585 (sum of weights: 1.83046e+07) - requested were 0 events
+--- DataSetFactory           : Background -- training and testing events: 1755170 (sum of weights: 1.83694e+07)
+--- DataSetFactory           : Background -- due to the preselection a scaling factor has been applied to the numbers of requested events: 0.00901953
+--- DataSetFactory           : Create internal training tree
+--- DataSetFactory           : Create internal testing tree
+--- DataSetInfo              : Correlation matrix (Signal):
+--- DataSetInfo              : -------------------------------------------------------------------------------------------------------------------------------
+--- DataSetInfo              :                     dxyVtx   dzVtx matchedCaloEnergy trkRelIso nValidPixelHits nValidTrackerHits nMissingOuterHits ptErrOverPt2
+--- DataSetInfo              :            dxyVtx:  +1.000  +0.069            -0.009    +0.081          -0.074            -0.164            +0.087       +0.065
+--- DataSetInfo              :             dzVtx:  +0.069  +1.000            -0.009    +0.013          -0.047            -0.031            +0.036       +0.012
+--- DataSetInfo              : matchedCaloEnergy:  -0.009  -0.009            +1.000    +0.303          -0.016            +0.036            -0.007       -0.031
+--- DataSetInfo              :         trkRelIso:  +0.081  +0.013            +0.303    +1.000          +0.014            -0.174            -0.046       +0.177
+--- DataSetInfo              :   nValidPixelHits:  -0.074  -0.047            -0.016    +0.014          +1.000            +0.106            +0.050       +0.025
+--- DataSetInfo              : nValidTrackerHits:  -0.164  -0.031            +0.036    -0.174          +0.106            +1.000            -0.296       -0.493
+--- DataSetInfo              : nMissingOuterHits:  +0.087  +0.036            -0.007    -0.046          +0.050            -0.296            +1.000       -0.331
+--- DataSetInfo              :      ptErrOverPt2:  +0.065  +0.012            -0.031    +0.177          +0.025            -0.493            -0.331       +1.000
+--- DataSetInfo              : -------------------------------------------------------------------------------------------------------------------------------
+--- DataSetInfo              : Correlation matrix (Background):
+--- DataSetInfo              : -------------------------------------------------------------------------------------------------------------------------------
+--- DataSetInfo              :                     dxyVtx   dzVtx matchedCaloEnergy trkRelIso nValidPixelHits nValidTrackerHits nMissingOuterHits ptErrOverPt2
+--- DataSetInfo              :            dxyVtx:  +1.000  +0.398            -0.071    +0.027          -0.135            -0.275            +0.117       +0.422
+--- DataSetInfo              :             dzVtx:  +0.398  +1.000            +0.053    +0.033          -0.143            -0.182            +0.138       +0.182
+--- DataSetInfo              : matchedCaloEnergy:  -0.071  +0.053            +1.000    -0.073          +0.113            +0.114            +0.050       -0.046
+--- DataSetInfo              :         trkRelIso:  +0.027  +0.033            -0.073    +1.000          -0.006            -0.009            +0.051       -0.012
+--- DataSetInfo              :   nValidPixelHits:  -0.135  -0.143            +0.113    -0.006          +1.000            +0.183            +0.023       +0.015
+--- DataSetInfo              : nValidTrackerHits:  -0.275  -0.182            +0.114    -0.009          +0.183            +1.000            -0.674       -0.398
+--- DataSetInfo              : nMissingOuterHits:  +0.117  +0.138            +0.050    +0.051          +0.023            -0.674            +1.000       +0.098
+--- DataSetInfo              :      ptErrOverPt2:  +0.422  +0.182            -0.046    -0.012          +0.015            -0.398            +0.098       +1.000
+--- DataSetInfo              : -------------------------------------------------------------------------------------------------------------------------------
+--- DataSetFactory           :  
+--- Factory                  : 
+--- Factory                  : current transformation string: 'I'
+--- Factory                  : Create Transformation "I" with events from all classes.
+--- Id                       : Transformation, Variable selection : 
+--- Id                       : Input : variable 'dxyVtx' (index=0).   <---> Output : variable 'dxyVtx' (index=0).
+--- Id                       : Input : variable 'dzVtx' (index=1).   <---> Output : variable 'dzVtx' (index=1).
+--- Id                       : Input : variable 'matchedCaloEnergy' (index=2).   <---> Output : variable 'matchedCaloEnergy' (index=2).
+--- Id                       : Input : variable 'trkRelIso' (index=3).   <---> Output : variable 'trkRelIso' (index=3).
+--- Id                       : Input : variable 'nValidPixelHits' (index=4).   <---> Output : variable 'nValidPixelHits' (index=4).
+--- Id                       : Input : variable 'nValidTrackerHits' (index=5).   <---> Output : variable 'nValidTrackerHits' (index=5).
+--- Id                       : Input : variable 'nMissingOuterHits' (index=6).   <---> Output : variable 'nMissingOuterHits' (index=6).
+--- Id                       : Input : variable 'ptErrOverPt2' (index=7).   <---> Output : variable 'ptErrOverPt2' (index=7).
+--- Id                       : Preparing the Identity transformation...
+--- TFHandler_Factory        : --------------------------------------------------------------------------------------------------------
+--- TFHandler_Factory        :          Variable                 Mean                 RMS         [        Min                 Max ]
+--- TFHandler_Factory        : --------------------------------------------------------------------------------------------------------
+--- TFHandler_Factory        :            dxyVtx:          0.0028193          0.0060831   [         3.8504e-11           0.099996 ]
+--- TFHandler_Factory        :             dzVtx:          0.0045344          0.0071170   [         2.9560e-09           0.099992 ]
+--- TFHandler_Factory        : matchedCaloEnergy:             48.517             64.887   [             0.0000             3848.3 ]
+--- TFHandler_Factory        :         trkRelIso:           0.053873           0.056478   [             0.0000            0.20000 ]
+--- TFHandler_Factory        :   nValidPixelHits:             2.9646            0.51880   [             0.0000             9.0000 ]
+--- TFHandler_Factory        : nValidTrackerHits:             8.6169             3.9294   [             3.0000             29.000 ]
+--- TFHandler_Factory        : nMissingOuterHits:             5.3981             2.2406   [             2.0000             14.000 ]
+--- TFHandler_Factory        :      ptErrOverPt2:          0.0093944           0.025847   [         0.00013935             5.0423 ]
+--- TFHandler_Factory        : --------------------------------------------------------------------------------------------------------
+--- TFHandler_Factory        : Plot event variables for Id
+--- TFHandler_Factory        : Create scatter and profile plots in target-file directory: 
+--- TFHandler_Factory        : output.root:/InputVariables_Id/CorrelationPlots
+--- TFHandler_Factory        :  
+--- TFHandler_Factory        : Ranking input variables (method unspecific)...
+--- IdTransformation         : Ranking result (top variable is best ranked)
+--- IdTransformation         : ------------------------------------------
+--- IdTransformation         : Rank : Variable          : Separation
+--- IdTransformation         : ------------------------------------------
+--- IdTransformation         :    1 : matchedCaloEnergy : 5.994e-01
+--- IdTransformation         :    2 : trkRelIso         : 5.362e-01
+--- IdTransformation         :    3 : ptErrOverPt2      : 1.342e-01
+--- IdTransformation         :    4 : dxyVtx            : 1.036e-01
+--- IdTransformation         :    5 : nValidTrackerHits : 7.367e-02
+--- IdTransformation         :    6 : dzVtx             : 6.116e-02
+--- IdTransformation         :    7 : nMissingOuterHits : 2.840e-02
+--- IdTransformation         :    8 : nValidPixelHits   : 1.301e-02
+--- IdTransformation         : ------------------------------------------
+--- Factory                  :  
+--- Factory                  : Train all methods for Classification ...
+--- Factory                  : Train method: BDT for Classification
+--- BDT                      : Begin training
+--- BDT                      :  found and suggest the following possible pre-selection cuts 
+--- BDT                      : as option DoPreselection was not used, these cuts however will not be performed, but the training will see the full sample
+--- BDT                      : <InitEventSample> For classification trees, 
+--- BDT                      :  the effective number of backgrounds is scaled to match 
+--- BDT                      :  the signal. Othersise the first boosting step would do 'just that'!
+--- BDT                      : re-normlise events such that Sig and Bkg have respective sum of weights = 1
+--- BDT                      :   sig->sig*7.27337ev. bkg->bkg*7.27337ev.
+--- BDT                      : #events: (reweighted) sig: 471184 bkg: 471184
+--- BDT                      : #events: (unweighted) sig: 64782 bkg: 877585
+--- BDT                      : Training 200 Decision Trees ... patience please
+--- BinaryTree               : The minimal node size MinNodeSize=5 fMinNodeSize=5% is translated to an actual number of events = 47118.4 for the training sample size of 942367
+--- BinaryTree               : Note: This number will be taken as absolute minimum in the node, 
+--- BinaryTree               :       in terms of 'weighted events' and unweighted ones !! 
+--- BDT                      : <Train> elapsed time: [1;31m263 sec[0m                              
+--- BDT                      : <Train> average number of nodes (w/o pruning) : 11
+--- BDT                      : End of training                                              
+--- BDT                      : Elapsed time for training with 942367 events: [1;31m274 sec[0m         
+--- BDT                      : Create MVA output for classification on training sample
+--- BDT                      : Evaluation of BDT on training sample (942367 events)
+--- BDT                      : Elapsed time for evaluation of 942367 events: [1;31m24.8 sec[0m       
+--- BDT                      : Creating weight file in xml format: [0;36mweights/TMVAClassification_BDT.weights.xml[0m
+--- BDT                      : Creating standalone response class: [0;36mweights/TMVAClassification_BDT.class.C[0m
+--- BDT                      : Write monitoring histograms to file: output.root:/Method_BDT/BDT
+--- Factory                  : Training finished
+--- Factory                  : 
+--- Factory                  : Ranking input variables (method specific)...
+--- BDT                      : Ranking result (top variable is best ranked)
+--- BDT                      : ---------------------------------------------------
+--- BDT                      : Rank : Variable          : Variable Importance
+--- BDT                      : ---------------------------------------------------
+--- BDT                      :    1 : matchedCaloEnergy : 2.060e-01
+--- BDT                      :    2 : trkRelIso         : 1.996e-01
+--- BDT                      :    3 : nValidTrackerHits : 1.502e-01
+--- BDT                      :    4 : dxyVtx            : 1.432e-01
+--- BDT                      :    5 : dzVtx             : 1.137e-01
+--- BDT                      :    6 : ptErrOverPt2      : 7.922e-02
+--- BDT                      :    7 : nMissingOuterHits : 6.894e-02
+--- BDT                      :    8 : nValidPixelHits   : 3.913e-02
+--- BDT                      : ---------------------------------------------------
+--- Factory                  : 
+--- Factory                  : === Destroy and recreate all methods via weight files for testing ===
+--- Factory                  : 
+--- MethodBase               : Reading weight file: [0;36mweights/TMVAClassification_BDT.weights.xml[0m
+--- BDT                      : Read method "BDT" of type "BDT"
+--- BDT                      : MVA method was trained with TMVA Version: 4.2.1
+--- BDT                      : MVA method was trained with ROOT Version: 6.06/01
+--- Factory                  : Test all methods...
+--- Factory                  : Test method: BDT for Classification performance
+--- BDT                      : Evaluation of BDT on testing sample (942367 events)
+--- BDT                      : Elapsed time for evaluation of 942367 events: [1;31m21 sec[0m       
+--- Factory                  : Evaluate all methods...
+--- Factory                  : Evaluate classifier: BDT
+--- BDT                      : Loop over test events and fill histograms with classifier response...
+--- Factory                  : Write evaluation histograms to file
+--- TFHandler_BDT            : Plot event variables for BDT
+--- TFHandler_BDT            : --------------------------------------------------------------------------------------------------------
+--- TFHandler_BDT            :          Variable                 Mean                 RMS         [        Min                 Max ]
+--- TFHandler_BDT            : --------------------------------------------------------------------------------------------------------
+--- TFHandler_BDT            :            dxyVtx:          0.0038937          0.0083504   [         1.0109e-09           0.099979 ]
+--- TFHandler_BDT            :             dzVtx:          0.0054135          0.0094974   [         1.4302e-09           0.099952 ]
+--- TFHandler_BDT            : matchedCaloEnergy:             78.560             64.291   [             0.0000             4715.6 ]
+--- TFHandler_BDT            :         trkRelIso:           0.090932           0.054238   [             0.0000            0.20000 ]
+--- TFHandler_BDT            :   nValidPixelHits:             2.9542            0.58053   [             0.0000             9.0000 ]
+--- TFHandler_BDT            : nValidTrackerHits:             9.6737             3.9735   [             3.0000             30.000 ]
+--- TFHandler_BDT            : nMissingOuterHits:             5.1205             2.2273   [             2.0000             14.000 ]
+--- TFHandler_BDT            :      ptErrOverPt2:          0.0035166           0.010953   [         0.00013531             5.5362 ]
+--- TFHandler_BDT            : --------------------------------------------------------------------------------------------------------
+--- TFHandler_BDT            : Create scatter and profile plots in target-file directory: 
+--- TFHandler_BDT            : output.root:/Method_BDT/BDT/CorrelationPlots
+--- Factory                  : Correlations between input variables and MVA response (signal):
+--- Factory                  : ----------------
+--- Factory                  :                        BDT
+--- Factory                  :            dxyVtx:  -0.072
+--- Factory                  :             dzVtx:  -0.055
+--- Factory                  : matchedCaloEnergy:  -0.562
+--- Factory                  :         trkRelIso:  -0.520
+--- Factory                  :   nValidPixelHits:  +0.012
+--- Factory                  : nValidTrackerHits:  -0.224
+--- Factory                  : nMissingOuterHits:  -0.015
+--- Factory                  :      ptErrOverPt2:  +0.172
+--- Factory                  : ----------------
+--- Factory                  : 
+--- Factory                  : Correlations between input variables and MVA response (background):
+--- Factory                  : ----------------
+--- Factory                  :                        BDT
+--- Factory                  :            dxyVtx:  -0.303
+--- Factory                  :             dzVtx:  -0.240
+--- Factory                  : matchedCaloEnergy:  +0.156
+--- Factory                  :         trkRelIso:  -0.489
+--- Factory                  :   nValidPixelHits:  +0.063
+--- Factory                  : nValidTrackerHits:  -0.052
+--- Factory                  : nMissingOuterHits:  +0.079
+--- Factory                  :      ptErrOverPt2:  -0.028
+--- Factory                  : ----------------
+--- Factory                  : 
+--- Factory                  : The following "overlap" matrices contain the fraction of events for which 
+--- Factory                  : the MVAs 'i' and 'j' have returned conform answers about "signal-likeness"
+--- Factory                  : An event is signal-like, if its MVA output exceeds the following value:
+--- Factory                  : --------------------
+--- Factory                  :  Method:  Cut value:
+--- Factory                  : --------------------
+--- Factory                  :     BDT:     -0.034
+--- Factory                  : --------------------
+--- Factory                  : which correspond to the working point: eff(signal) = 1 - eff(background)
+--- Factory                  : 
+--- Factory                  : Evaluation results ranked by best signal efficiency and purity (area)
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : MVA              Signal efficiency at bkg eff.(error):       | Sepa-    Signifi- 
+--- Factory                  : Method:          @B=0.01    @B=0.10    @B=0.30    ROC-integ. | ration:  cance:   
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : BDT            : 0.841(89)  0.944(56)  0.980(34)    0.980    | 0.798    2.399
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : 
+--- Factory                  : Testing efficiency compared to training efficiency (overtraining check)
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : MVA              Signal efficiency: from test sample (from training sample) 
+--- Factory                  : Method:          @B=0.01             @B=0.10            @B=0.30   
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : BDT            : 0.841 (0.840)       0.944 (0.943)      0.980 (0.980)
+--- Factory                  : --------------------------------------------------------------------------------
+--- Factory                  : 
+--- Dataset:Default          : Created tree 'TestTree' with 942367 events
+--- Dataset:Default          : Created tree 'TrainTree' with 942367 events
+--- Factory                  :   
+--- Factory                  : [1mThank you for using TMVA![0m
+--- Factory                  : [1mFor citation information, please visit: http://tmva.sf.net/citeTMVA.html[0m
+Success
