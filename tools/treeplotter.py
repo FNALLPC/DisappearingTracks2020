@@ -76,7 +76,9 @@ def get_histogram_from_file(tree_files, tree_folder_name, variable, cutstring=Fa
         tree = TChain(tree_folder_name)       
         for tree_file in tree_files:
             try:
+                tree_file = tree_file.replace("/eos/uscms","root://cmseos.fnal.gov/")
                 tree.Add(tree_file)
+                print "Adding %s"%tree_file
             except:
                 pass
         try:
