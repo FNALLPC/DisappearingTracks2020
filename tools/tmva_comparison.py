@@ -135,7 +135,7 @@ def main(output_filename, tmva_files):
    
    
 cfg_dict = {
-            "configuration 1": ["./path/to/tmva/output.root", "/eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/*.root", "samples.cfg"],
+            "configuration 1": ["./path/to/tmva/output.root", "root://cmseos.fnal.gov//store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/tracks-pixelonly/*.root", "samples.cfg"],
            }
            
 main("bdt-comparison.pdf", cfg_dict)
