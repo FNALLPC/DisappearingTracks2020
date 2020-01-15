@@ -1,0 +1,14 @@
+
+                universe = vanilla
+                should_transfer_files = IF_NEEDED
+                log = job_18-12-19-13-13-51_0.sh.log$(Cluster)
+                executable = /bin/bash
+                arguments = job_18-12-19-13-13-51_0.sh
+                initialdir = /nfs/dust/cms/user/kutznerv/disapptrks/track-tag/cmssw8-newpresel2-200-4-medium-updated/bird
+                error = job_18-12-19-13-13-51_0.sh.e$(Cluster)
+                output = job_18-12-19-13-13-51_0.sh.o$(Cluster)
+                notification = Never
+                
+                priority = 0
+                Queue
+            
