@@ -47,7 +47,7 @@ c = TChain('TreeMaker2/PreSelection')
 for line in lines:
     shortfname = fnamekeyword
     if not shortfname in line: continue
-    fname = '/eos/uscms/store/user/lpcsusyhad/sbein/cmsdas19/Ntuples/'+line
+    fname = '/eos/uscms/store/user/lpcsusyhad/aperloff/BackgroundEstimate/'+line
     fname = fname.strip().replace('/eos/uscms/','root://cmseos.fnal.gov//')
     print 'adding', fname
     c.Add(fname)
@@ -90,17 +90,17 @@ regionCuts = {}
 varlist_                         = ['Ht',    'Mht',     'NJets', 'BTags', 'NTags', 'NPix', 'NPixStrips', 'MinDPhiMhtJets', 'NElectrons', 'NMuons', 'TrkPt',       'TrkEta','BinNumber']
 regionCuts['NoCuts']             = [(0,inf), (0.0,inf), (0,inf), (0,inf), (1,inf), (0,inf), (0,inf),     (0.0,inf),        (0,inf),     (0,inf),  (lepPtCut,inf), (0,2.4), (-1,inf)]
 #regionCuts['LowMhtBaseline']     = [(0,inf), (150,inf), (1,inf), (0,inf), (1,inf), (0,inf), (0,inf),     (0.3,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
-regionCuts['Baseline']           = [(0,inf), (250,inf), (1,inf), (0,inf), (1,inf), (0,inf), (0,inf),     (0.3,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
+regionCuts['Baseline']           = [(0,inf), (350,inf), (1,inf), (0,inf), (1,inf), (0,inf), (0,inf),     (0.35,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 regionCuts['TtbarCtrEl']         = [(0,inf), (100,300), (2,inf), (1,5),   (1,1),   (0,inf), (0,inf),     (0.3,inf),        (1,1),       (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 regionCuts['TtbarCtrMu']         = [(0,inf), (100,300), (2,inf), (1,5),   (1,1),   (0,inf), (0,inf),     (0.3,inf),        (0,0),       (1,1),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 
 #regionCuts['LowMhtBasePixOnly']  = [(0,inf), (150,inf), (1,inf), (0,inf), (1,inf), (1,inf), (0,inf),     (0.3,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
-regionCuts['BaselinePixOnly']    = [(0,inf), (250,inf), (1,inf), (0,inf), (1,inf), (1,inf), (0,inf),     (0.3,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
+regionCuts['BaselinePixOnly']    = [(0,inf), (350,inf), (1,inf), (0,inf), (1,inf), (1,inf), (0,inf),     (0.35,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 regionCuts['TtbarCtrElPixOnly']  = [(0,inf), (100,300), (2,inf), (1,5),   (1,1),   (1,inf), (0,inf),     (0.3,inf),        (1,1),       (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 regionCuts['TtbarCtrMuPixOnly']  = [(0,inf), (100,300), (2,inf), (1,5),   (1,1),   (1,inf), (0,inf),     (0.3,inf),        (0,0),       (1,1),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 
 #regionCuts['LowMhtBasePixAndStrips']=[(0,inf),(150,inf),(1,inf), (0,inf), (1,inf), (0,inf), (1,inf),     (0.3,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
-regionCuts['BaselinePixAndStrips']  =[(0,inf),(250,inf),(1,inf), (0,inf), (1,inf), (0,inf), (1,inf),     (0.3,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
+regionCuts['BaselinePixAndStrips']  =[(0,inf),(350,inf),(1,inf), (0,inf), (1,inf), (0,inf), (1,inf),     (0.35,inf),        (0,0  ),     (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 regionCuts['TtbarCtrElPixAndStrips']=[(0,inf),(100,300),(2,inf), (1,5),   (1,1),   (0,inf), (1,inf),     (0.3,inf),        (1,1),       (0,0),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 regionCuts['TtbarCtrMuPixAndStrips']=[(0,inf),(100,300),(2,inf), (1,5),   (1,1),   (0,inf), (1,inf),     (0.3,inf),        (0,0),       (1,1),    (lepPtCut,inf), (0,2.4), (-1,inf)]
 

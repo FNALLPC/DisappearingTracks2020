@@ -74,7 +74,7 @@ c = TChain('TreeMaker2/PreSelection')
 for line in lines:
     shortfname = fnamekeyword
     if not shortfname in line: continue
-    fname = '/eos/uscms/store/user/lpcsusyhad/sbein/cmsdas19/Ntuples/'+line
+    fname = '/eos/uscms/store/user/lpcsusyhad/aperloff/BackgroundEstimate/'+line
     fname = fname.strip().replace('/eos/uscms/','root://cmseos.fnal.gov//')
     print 'adding', fname
     c.Add(fname)

@@ -54,6 +54,7 @@ def main():
         newshstr = shtemplate.replace('ANALYZER',analyzer).replace('FNAMEKEYWORD',fname).replace('MOREARGS',moreargs)
         newsh.write(newshstr)
         newsh.close()
+        os.chmod('jobs/'+job+'.sh',0755)
         if not os.path.exists('output/'+fnamekeyword.replace(' ','')): 
             os.system('mkdir output/'+fnamekeyword.replace(' ',''))
         os.chdir('output/'+fnamekeyword.replace(' ',''))
@@ -70,20 +71,30 @@ Executable = CWD/jobs/JOBKEY.sh
 Output = CWD/jobs/JOBKEY.out
 Error = CWD/jobs/JOBKEY.err
 Log = CWD/jobs/JOBKEY.log
-should_transfer_files = YES
-when_to_transfer_output = ON_EXIT
-transfer_input_files=CWD/tools, CWD/usefulthings, /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel3-200-4-short-updated/weights/TMVAClassification_BDT.weights.xml, /eos/uscms/store/user/cmsdas/2019/long_exercises/DisappearingTracks/track-tag/cmssw8-newpresel2-200-4-medium-updated/weights/TMVAClassification_BDT.weights.xml
++REQUIRED_OS = "rhel7"
++DesiredOS = REQUIRED_OS
+Should_Transfer_Files = YES
+WhenToTransferOutput = ON_EXIT_OR_EVICT
+transfer_input_files=CWD/tools, CWD/usefulthings 
 x509userproxy = $ENV(X509_USER_PROXY)
+want_graceful_removal = true
+on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+on_exit_hold = ( (ExitBySignal == True) || (ExitCode != 0) )
+on_exit_hold_reason = strcat("Job held by ON_EXIT_HOLD due to ",\
+                    ifThenElse((ExitBySignal == True), "exit by signal", \
+strcat("exit code ",ExitCode)), ".")
 Queue 1
 '''
 
-shtemplate = '''
-#!/bin/bash
-export SCRAM_ARCH=slc6_amd64_gcc630
+
+
+shtemplate = '''#!/bin/bash
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+export SCRAM_ARCH=slc7_amd64_gcc700
 echo $PWD
 ls
-scram project CMSSW_10_1_0
-cd CMSSW_10_1_0/src
+scram project CMSSW_10_6_4
+cd CMSSW_10_6_4/src
 eval `scramv1 runtime -sh`
 cd ${_CONDOR_SCRATCH_DIR}
 echo $PWD
