@@ -21,7 +21,7 @@ def nameonly(s):
 	return posixpath.splitext(posixpath.split(s)[1])[0]    
 # -----------------------------------------------------------------------------
 
-skimDirectory = '/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/Skims/'
+skimDirectory = '/eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/Skims'
 
 def main():
 	NAME = 'LLSUSY'
@@ -54,7 +54,7 @@ def main():
 		error("unable to open signal file %s" % sigfilename)
 
 	# Name of background file        
-	bkgfilename = skimDirectory+"/Background/skim_allBackgrounds.root"
+	bkgfilename = skimDirectory+"/Background/skim_allBackgrounds_new.root"
 	if not os.path.exists(bkgfilename):
 		error("unable to open background file %s" % bkgfilename)
 
@@ -71,7 +71,7 @@ def main():
 	treename   = "tEvent"  # name of Root tree 
 	weightname = "weight"    # name of event weight variable
 	#lumi = 35900 # in 1/pb
-	lumi = 135000
+	lumi = 137000
 	# One can add an optional selection, which, if true, keeps the event.
 	selection  = "(Mht >= 150 && NTags==1)"
 
