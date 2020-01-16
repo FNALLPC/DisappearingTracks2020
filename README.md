@@ -704,6 +704,13 @@ You can also copy the real data versions of the control region histograms:
 ```bash
 cp /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/totalweightedbkgs*.root output/
 cp -r /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/mergedRoots .
+
+Actually do:
+xrdcp root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/totalweightedbkgsDataDrivenMC.root output/
+xrdcp root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/totalweightedbkgsTrueFit.root
+mkdir mergedRoots
+for i in `eosls /eos/uscms/store/user/cmsdas/2020/long_exercises/DisappearingTracks/mergedRoots`; do xrdcp root://cmseos.fnal.gov//store/user/cmsdas/2020/long_exercises/DisappearingTracks/mergedRoots/$i .;  done
+
 ```
 
 It is also important to validate the procedure in the real data. A good test region is a ttbar-enhanced control region, where we select one good muon or electron and at least one b-tagged jet. The test is made in the low MHT sideband from 100-250:
